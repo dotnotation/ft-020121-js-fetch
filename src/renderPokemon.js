@@ -11,7 +11,10 @@ function renderPokemon(pokemon) {
                     <img alt="pokemon-image" src="${pokemon.sprites.front}">
                 </div>
                 <button data-action="delete" class="pokemon-delete-button">Delete</button><br>
-                <form class="pokemon-update"><input type="text"><input type="submit"></form>
+                <form class="pokemon-update">
+                    <input type="text">
+                    <input type="submit">
+                </form>
             </div>
         </div>`
     )
