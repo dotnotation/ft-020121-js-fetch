@@ -43,9 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
     
     function createPokemon(){
         createForm.addEventListener("submit", function(e){
+            // grabbing our form and adding an event listener to the submit function which we then want to call a function on to ...
+            // take our event of submit and prevent the default of reloading the page
             e.preventDefault()
             const form = e.target
+            // grabbing the target of our event 
             const nameInput = form.querySelector("#name-input")
+            // grabbing the name input so we can grab the information submitted and push it to the back end
             const spriteInput = form.querySelector("#sprite-input")
             
             // take values and send to our db to create a new pokemon
@@ -54,8 +58,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
+                    // just says that we are getting and submitting json to the db
                 },
                 body: JSON.stringify({
+                    // taking the target information and putting it in the db
                     name: nameInput.value,
                     sprites: {
                         front: spriteInput.value
@@ -66,6 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             //     return resp.json()
             // })
             .then(resp => resp.json())
+            // now that things are taken care on the backend we want to push that to the front end
             .then(pokemon => {
                 console.log("Created pokemon:", pokemon)
                 pokemonContainer.innerHTML += renderPokemon(pokemon)
@@ -76,12 +83,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updatePokemon(){
         pokemonContainer.addEventListener("submit", (e) => {
+            // there is only one submit button in the pokemon container which makes this easy
             e.preventDefault()
             console.log("EDITTING:", e.target)
             const id = e.target.parentElement.parentElement.dataset.id
             const nameInput = e.target.children[0]
             
-            // const nameInput = e.target.querySelector('input')
+            // const nameInput = e.target.querySelector('input') also works
 
             // update pokemon in db
             fetch(`http://localhost:3000/pokemon/${id}`, {
@@ -119,11 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 fetch(`http://localhost:3000/pokemon/${id}`, {
                     method: "DELETE"
+                    // remove from backend
                 })
                 .then(resp => resp.json())
                 .then(data => {
                     console.log(data)
-                    // remove div from DOM
+                    // remove div from DOM or remove from front end
                     btn.parentElement.parentElement.remove()
                 })
                 .catch(err => console.error(err))

@@ -19,3 +19,4 @@ function renderPokemon(pokemon) {
         </div>`
     )
 }
+// this is making an html pokemon card
